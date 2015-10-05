@@ -1,0 +1,23 @@
+{
+  "name": "thoughtworkslibrary",
+  "version": "1.0.0",
+  "description": "An application for maintaining thoughtworks library",
+  "main": "main.go",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koushik-shetty/TWLibrary.git"
+  },
+  "author": "Koushik shetty",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/koushik-shetty/TWLibrary/issues"
+  },
+  "homepage": "https://github.com/koushik-shetty/TWLibrary#readme",
+  "devDependencies": {
+    "chalk": "^1.1.1",
+    "gulp": "^3.9.0"
+  }
+}

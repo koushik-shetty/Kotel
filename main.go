@@ -1,9 +1,10 @@
-package TWLibrary
+package main
 
 import (
 	"fmt"
 )
 
 func main() {
-	fmt.Println("Hello from main site")
+	fmt.Println("ThoughtWorks Library application by Koushik Shetty[17801]")
+
 }
