@@ -27,14 +27,18 @@ var path = require("path"),
 	    });
   };
 
+gulp.task("format",function(callback){
+	execute("go fmt ./...",callback);	
+});
 
 gulp.task("compile-go",function(callback){
 	execute("go build -o " + outDir +"/"+exe,callback);
 });
 
+
 gulp.task("build",["compile-go"]);
 
-gulp.task("default",["build"]);
+gulp.task("default",["build","format"]);
 
 gulp.task("run",function(callback){
 	execute("./"+outDir+"/"+exe + "&",callback);

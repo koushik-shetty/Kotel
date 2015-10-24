@@ -2,4 +2,4 @@
 ThoughtWorks Library Application
 Developed by Koushik Shetty
 
-This application help to maintain the library at thoughtworks.
+This application helps to maintain the library at ThoughtWorks.
