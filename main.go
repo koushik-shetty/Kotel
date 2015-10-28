@@ -8,13 +8,13 @@ import (
 )
 
 func main() {
-	fmt.Println("****    ThoughtWorks Library application developed by Koushik Shetty[17801]  *****\n\n")
+	fmt.Println("****    ThoughtWorks Library application developed by Koushik Shetty[17801]  *****\n")
 
-	var config a.AppConfig
-	config.InitApp()
+	AppConfig := a.InitApp()
 
+	fmt.Printf("App port : %s\n", AppConfig.GetConfig().Port)
 	h.Handlers("/", h.DefaultHandler)
 
-	http.ListenAndServe(":5004", nil)
+	http.ListenAndServe(":"+AppConfig.GetConfig().Port, nil)
 	return
 }

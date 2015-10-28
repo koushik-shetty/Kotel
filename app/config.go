@@ -3,20 +3,56 @@ package app
 import (
 	"flag"
 	// "log"
+	"errors"
 )
 
-type AppConfig struct {
+type Flags struct {
 	DevMode bool
 	LogDir  string
 }
 
-func (conf *AppConfig) InitApp() {
-	devMode := flag.Bool("dev", false, "-dev=true for development mode")
-	logDir := flag.String("logdir", "./logs", "directory to store the logs. Should be relative to the current directory")
+type Config struct {
+	Port string
+}
+
+var DefaultConfig = Config{
+	Port: "5004",
+}
+
+type AppConfig struct {
+	Config Config
+	Flags  Flags
+}
+
+func (config *AppConfig) GetConfig() Config {
+	return config.Config
+}
+
+func (config *AppConfig) GetFlags() Flags {
+	return config.Flags
+}
+
+func getFlags() Flags {
+
+	devMode := flag.Bool(devModeFlag, false, devModeFlagMsg)
+	logDir := flag.String(logDirFlag, logDirDefault, logDirFlagMsg)
 
 	flag.Parse()
 
-	conf.DevMode = *devMode
-	conf.LogDir = *logDir
+	return Flags{
+		DevMode: *devMode,
+		LogDir:  *logDir,
+	}
+}
 
+func getConfig() Config {
+	config, err := readConfigFile("")
+	if err != nil {
+		return DefaultConfig
+	}
+	return *config
+}
+
+func readConfigFile(path string) (config *Config, err error) {
+	return nil, errors.New("Failed to read config file")
 }
