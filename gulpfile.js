@@ -1,15 +1,22 @@
 "use strict";
 
-var path = require("path"),
-	gulp = require("gulp"),
+var gulp = require("gulp"),
 	chalk = require("chalk"),
 	childProcess = require("child_process"),
 	exec = childProcess.exec,
-
+	gulp = require('gulp'),
+	concat = require('gulp-concat'),
+	uglify = require('gulp-uglify'),
+	react = require('gulp-react'),
+	htmlreplace = require('gulp-html-replace'),
 	outDir = "out",
 	exe = "TWLibrary",
 
-
+	paths = {
+		out: "out",
+		jsOut:"out/public/javascript",
+		cssOut: ""
+	};
 	execute = function(command, callback) {
 	    if (!callback) {
 	      throw "ArgumentMissing when running '" + command + "' (callback: " + callback + ")";
@@ -25,7 +32,7 @@ var path = require("path"),
 	      callback(err);
 	      return stdout;
 	    });
-  };
+  	};
 
 gulp.task("format",function(callback){
 	execute("go fmt ./...",callback);	
