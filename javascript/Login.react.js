@@ -1,12 +1,14 @@
-import react from "react";
+import React from "react";
 
 
-var Login = React.Createclass {
-	render : function(){
+class Login extends React {
+	render(){
 		return (
-				<div>
-					Inside login React Component
-				</div>
-			);
+			<div>
+				Inside login React Component
+			</div>
+		);
 	}
 }
+
+export default Login;

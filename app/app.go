@@ -1,5 +1,9 @@
 package app
 
+import (
+	"net/http"
+)
+
 func InitApp() AppConfig {
 	return AppConfig{
 		Flags:  getFlags(),
@@ -8,5 +12,6 @@ func InitApp() AppConfig {
 }
 
 func StartApplication(config *AppConfig) error {
-	http.ListenAndServer(config.GetConfig().Port)
+	http.ListenAndServe(config.GetConfig().Port, nil)
+	return nil
 }

@@ -7,16 +7,20 @@ var gulp = require("gulp"),
 	gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	babel = require('babelify'),
+	browserify = require('browserify'),
 	react = require('gulp-react'),
-	htmlreplace = require('gulp-html-replace'),
-	outDir = "out",
+	jslint = require('jslint'),
 	exe = "TWLibrary",
-
+	outDir = "out",
 	paths = {
-		out: "out",
-		jsOut:"out/public/javascript",
-		cssOut: ""
+		Target: outDir + "/" + exe,
+		jsSrc: ["javascript/*.js","javascript/**/*.js","javascript/**/**/*.js"],
+		jsOut: outDir + "/public/javascript",
+		cssSrc: ["views/styles/*.css","views/styles/**/*.css"],
+		cssOut: outDir + "/public/styles",
 	};
+
 var execute = function(command, callback) {
     if (!callback) {
       throw "ArgumentMissing when running '" + command + "' (callback: " + callback + ")";
@@ -34,19 +38,32 @@ var execute = function(command, callback) {
     });
 };
 
+
 gulp.task("format",function(callback){
 	execute("go fmt ./...",callback);	
 });
 
+/**********************************Build tasks*************************************/
+
+gulp.task("build-js",function(callback){
+	gulp.src(paths.jsSrc)
+		.pipe(babel())
+		.pipe(browserify())
+		.pipe(jslint())
+		.pipe(gulp.dest(paths.jsOut))
+})
+
 gulp.task("compile-go",function(callback){
-	execute("go build -o " + outDir +"/"+exe,callback);
+	execute("go build -o " + paths.Target, callback);
 });
 
 
-gulp.task("build",["compile-go"]);
+gulp.task("build",["compile-go","build-js"]);
+
+/**********************************************************************************/
 
 gulp.task("default",["format","build"]);
 
 gulp.task("run",function(callback){
-	execute("./"+outDir+"/"+exe + "&",callback);
+	execute("./"+ paths.Target + " &", callback);
 });
