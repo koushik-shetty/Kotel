@@ -20,7 +20,7 @@ var gulp = require('gulp'),
 		Target: outDir + '/' + exe,
 		jsSrc: 'javascript/src',
 		jsOut: outDir + '/public/javascript',
-		cssSrc: ['views/assets/images/*.*','views/assets/*.css','views/assets/**/*.css'],
+		cssSrc: ['views/assets/images/*.*','views/assets/styles/*.css'],
 		cssOut: outDir + '/public/styles',
 	},
 	jsEntry= paths.jsSrc + '/' + jsMainfile;
