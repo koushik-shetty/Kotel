@@ -54,7 +54,7 @@ gulp.task('jshint',function(callback){
 
 /**********************************Build tasks*************************************/
 
-gulp.task('build-js',['build-assets'],function(callback){
+gulp.task('build-js',function(callback){
 	return browserify({
 		entries: jsEntry,
 		debug: true
@@ -76,7 +76,7 @@ gulp.task('compile-go',function(callback){
 });
 
 
-gulp.task('build',['compile-go','build-js']);
+gulp.task('build',['compile-go','build-js','build-assets']);
 
 gulp.task('clean',function(callback){
 	execute('rm -rf out',callback);	

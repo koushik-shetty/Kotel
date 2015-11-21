@@ -34,6 +34,7 @@
     "uglify": "^0.1.5"
   },
   "dependencies": {
+    "babelify-es6-polyfill": "^1.0.4",
     "jslint": "^0.9.3",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",

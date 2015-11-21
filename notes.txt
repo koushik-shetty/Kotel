@@ -1,7 +1,7 @@
 for babel to work use :
 	- npm install -g babel-cli 
 	- npm install babel-preset-es2015 babel-preset-react (for babel > 6 [https://facebook.github.io/react/docs/tooling-integration.html])
-	- babel --presets es2015,react [source_files]
+	- babel --presets es2015,react [source_files] (see http://egorsmirnov.me/2015/11/03/upgrading-to-babel-6-babelify-and-webpack.html)
 
 
 ReactDOM(require('react-dom')) should be used to render instead of react.render

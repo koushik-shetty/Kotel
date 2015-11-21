@@ -27,6 +27,6 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 
 func PublicHandler(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Cache-Contrl", "private, max-age=31536000")
-	fmt.Printf("url paths : %v", r.URL.Path)
+	fmt.Printf("url paths : %v\n", r.URL.Path)
 	http.ServeFile(w, r, r.URL.Path[1:])
 }
