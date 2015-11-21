@@ -1,0 +1,11 @@
+for babel to work use :
+	- npm install -g babel-cli 
+	- npm install babel-preset-es2015 babel-preset-react (for babel > 6 [https://facebook.github.io/react/docs/tooling-integration.html])
+	- babel --presets es2015,react [source_files]
+
+
+ReactDOM(require('react-dom')) should be used to render instead of react.render
+	- npm install react react-dom
+	- include(require) both React and ReactDOM
+
+The script tag should be placed below the root div component(see http://stackoverflow.com/questions/26566317/invariant-violation-registercomponent-target-container-is-not-a-dom-elem)
