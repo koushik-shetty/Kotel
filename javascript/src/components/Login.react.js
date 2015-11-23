@@ -6,11 +6,10 @@ class Login extends React.Component{
 		return (
 			<div>
 				<TextBox DefaultText="" Name="userid" FieldName="UserID"/>
-				<TextBox DefaultText="" Name="password" FieldName="Password"/>
+				<TextBox DefaultText="" Name="password" FieldName="Password" type="password"/>
 			</div>
 		);
 	}
 }
 
-//React.render(<Login />,document.getEleementById("root"));
 export default Login;

@@ -17,7 +17,7 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	t, e := template.New("index.html").Parse(v.Index)
 
 	options := &v.IndexOptions{
-		Title: "TW Library",
+		Title: "Western Wall",
 	}
 	e = t.Execute(w, options)
 	if e != nil {

@@ -9,7 +9,9 @@ class TextBox extends React.Component{
 	render(){
 		return(
 			<div className="input-box">
-				{this.props.FieldName + ": "}	<input type="text" boxName={this.props.Name}/>
+				<form>
+					<input type={this.props.type === undefined ? "text":this.props.type} onChange={function() {}} name={this.props.Name} placeholder={this.props.FieldName} required/>
+				</form>
 			</div>
 		);
 	}

@@ -1,11 +1,15 @@
-for babel to work use :
+* for babel to work use :
 	- npm install -g babel-cli 
 	- npm install babel-preset-es2015 babel-preset-react (for babel > 6 [https://facebook.github.io/react/docs/tooling-integration.html])
 	- babel --presets es2015,react [source_files] (see http://egorsmirnov.me/2015/11/03/upgrading-to-babel-6-babelify-and-webpack.html)
 
 
-ReactDOM(require('react-dom')) should be used to render instead of react.render
+* ReactDOM(require('react-dom')) should be used to render instead of react.render
 	- npm install react react-dom
 	- include(require) both React and ReactDOM
 
-The script tag should be placed below the root div component(see http://stackoverflow.com/questions/26566317/invariant-violation-registercomponent-target-container-is-not-a-dom-elem)
+* The script tag should be placed below the root div component(see http://stackoverflow.com/questions/26566317/invariant-violation-registercomponent-target-container-is-not-a-dom-elem)
+
+* In react if the html input tags have value attribute defined then they become readonly(see http://stackoverflow.com/questions/28315205/why-does-react-make-inputtype-text-fields-readonly-unless-i-supply-onchange)
+
+* 

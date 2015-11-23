@@ -78,11 +78,12 @@ gulp.task('compile-go',function(callback){
 
 gulp.task('build',['compile-go','build-js','build-assets']);
 
-gulp.task('clean',function(callback){
-	execute('rm -rf out',callback);	
-});
 
 /**********************************************************************************/
+
+gulp.task('clean',function(callback){
+	execute('rm -rf out/',callback);	
+});
 
 gulp.task('default',['format','build']);
 

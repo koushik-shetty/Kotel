@@ -14,7 +14,9 @@ const Index = `	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "
 </head>
 
 <body>
-	<p>This is my web page</p>
+	<span>
+		<h1 id="ww">Western Wall</h1>
+	</span>
 	<div id="root"></div>
 	<script src="public/javascript/main.js"></script>
 </body>
