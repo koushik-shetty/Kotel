@@ -7,7 +7,7 @@ var gulp = require('gulp'),
 	gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
-	//uglifyCss = require('lib/uglify'),
+	minifyCss = require('gulp-minify-css'),
 	babelify = require('babelify'),
 	babel = require('gulp-babel'),
 	browserify = require('browserify'),
@@ -91,8 +91,9 @@ gulp.task('build-assets',function(callback){
 });
 
 gulp.task('build-min-assets',function(callback){
-
-	execute("/node_modules/.bin/uglify -c -s "+paths.cssSrc + " -o " + paths.cssOut + "/main.css",callback);
+	gulp.src(paths.cssSrc)
+	.pipe(minifyCss({debug:true}))
+	.pipe(gulp.dest(paths.cssOut));
 });
 
 gulp.task('compile-go',function(callback){
