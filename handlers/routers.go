@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"TWLibrary/app"
 	v "TWLibrary/views"
 	"fmt"
 	"html/template"
@@ -17,7 +18,7 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	t, e := template.New("index.html").Parse(v.Index)
 
 	options := &v.IndexOptions{
-		Title: "Western Wall",
+		Title: app.AppName,
 	}
 	e = t.Execute(w, options)
 	if e != nil {

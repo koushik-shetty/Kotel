@@ -7,4 +7,6 @@ const (
 	logDirFlag    = "logdir"
 	logDirFlagMsg = "directory to store the logs. Should be relative to the current directory"
 	logDirDefault = "./logs"
+
+	AppName = "Western Wall"
 )

@@ -7,6 +7,7 @@ var gulp = require('gulp'),
 	gulp = require('gulp'),
 	concat = require('gulp-concat'),
 	uglify = require('gulp-uglify'),
+	//uglifyCss = require('lib/uglify'),
 	babelify = require('babelify'),
 	babel = require('gulp-babel'),
 	browserify = require('browserify'),
@@ -20,8 +21,10 @@ var gulp = require('gulp'),
 		Target: outDir + '/' + exe,
 		jsSrc: 'javascript/src',
 		jsOut: outDir + '/public/javascript',
-		cssSrc: ['views/assets/images/*.*','views/assets/styles/*.css'],
+		cssSrc: 'views/assets/styles/*.css',
 		cssOut: outDir + '/public/styles',
+		imagesSrc: ['views/assets/images/*.*'],
+		imagesOut: outDir + '/public/images'
 	},
 	jsEntry= paths.jsSrc + '/' + jsMainfile;
 
@@ -52,6 +55,18 @@ gulp.task('jshint',function(callback){
 	execute('jshint --verbose ' + paths.jsSrc,callback);
 });
 
+gulp.task('min-js',function(callback){
+	gulp.src(paths.jsOut+"/*.js")
+	.pipe(uglify())
+	.pipe(gulp.dest(paths.jsOut));
+});
+
+gulp.task('build-min-js',["build-js"],function(callback){
+	gulp.src(paths.jsOut+"/*.js")
+	.pipe(uglify())
+	.pipe(gulp.dest(paths.jsOut));
+});
+
 /**********************************Build tasks*************************************/
 
 gulp.task('build-js',function(callback){
@@ -65,18 +80,27 @@ gulp.task('build-js',function(callback){
 	.pipe(gulp.dest(paths.jsOut));
 });
 
-gulp.task('build-assets',function(callback){
-	gulp.src(paths.cssSrc)
-	.pipe(gulp.dest(paths.cssOut))
+gulp.task('build-images',function(callback){
+	gulp.src(paths.imagesSrc)
+	.pipe(gulp.dest(paths.imagesOut));
 });
 
+gulp.task('build-assets',function(callback){
+	gulp.src(paths.cssSrc)
+	.pipe(gulp.dest(paths.cssOut));
+});
+
+gulp.task('build-min-assets',function(callback){
+
+	execute("/node_modules/.bin/uglify -c -s "+paths.cssSrc + " -o " + paths.cssOut + "/main.css",callback);
+});
 
 gulp.task('compile-go',function(callback){
 	execute('go build -o ' + paths.Target, callback);
 });
 
 
-gulp.task('build',['compile-go','build-js','build-assets']);
+gulp.task('build',['compile-go','build-min-js','build-assets','build-images']);
 
 
 /**********************************************************************************/
