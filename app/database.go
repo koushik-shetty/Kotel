@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"log"
 
 	_ "github.com/lib/pq"
 )
@@ -14,10 +15,12 @@ type Database struct {
 }
 
 func (dbconf *c.DBConfig) NewDatabase() (*Database, error) {
-	driverConnectionString := fmt.Sprintf("host=%s dbname=%s user=%s password=%s", dbconf.HostName(), dbconf.DBName(), dbconf.UserName(), dbconf.Password())
+	driverConnectionString := dbconf.DBConnectionString()
 
 	db, err := sql.Open(dbcongf.driver, driver)
 	return &Database{
 		database: db,
 	}, err
 }
+
+func

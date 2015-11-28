@@ -1,5 +1,5 @@
-# TWLibrary
-ThoughtWorks Library Application
+# Kotel
+Virtual Story Wall
 Developed by Koushik Shetty
 
-This application helps to maintain the library at ThoughtWorks.
+This application virtualizes the Story wall.

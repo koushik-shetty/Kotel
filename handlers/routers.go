@@ -1,8 +1,8 @@
 package handlers
 
 import (
-	"TWLibrary/app"
-	v "TWLibrary/views"
+	"Kotel/app"
+	v "Kotel/views"
 	"fmt"
 	"html/template"
 	"net/http"

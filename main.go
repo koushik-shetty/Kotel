@@ -1,8 +1,8 @@
 package main
 
 import (
-	a "TWLibrary/app"
-	h "TWLibrary/handlers"
+	a "Kotel/app"
+	h "Kotel/handlers"
 	"fmt"
 	"net/http"
 )

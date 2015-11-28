@@ -1,5 +1,9 @@
 package config
 
+import (
+	"fmt"
+)
+
 type dbConfig struct {
 	dirver   string
 	hostname string
@@ -42,6 +46,10 @@ func DefaultDBConfig() *dbConfig {
 		username: "pilgrim",
 		password: "western_wall",
 	}
+}
+
+func (dbconf *dbConfig) DBConnectionString() string {
+	return fmt.Sprintf("host=%s dbname=%s user=%s password=%s", dbconf.HostName(), dbconf.DBName(), dbconf.UserName(), dbconf.Password())
 }
 
 func NewDBConfig(host, dbname, schema, username, password string) *dbConfig {
