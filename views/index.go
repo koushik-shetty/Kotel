@@ -1,7 +1,7 @@
 package views
 
 import (
-	"TWLibrary/app"
+	con "kotel/constants"
 )
 
 type IndexOptions struct {
@@ -20,7 +20,7 @@ const Index = `	<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "
 
 <body>
 	<span>
-		<h1 id="ww">` + app.AppName + `</h1>
+		<h1 id="ww">` + con.AppName + `</h1>
 	</span>
 	<div id="root"></div>
 	<script src="public/javascript/main.js"></script>

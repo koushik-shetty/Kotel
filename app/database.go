@@ -1,11 +1,10 @@
 package app
 
 import (
-	c "config"
+	c "Kotel/config"
 	"database/sql"
-	"errors"
 	"fmt"
-	"log"
+	_ "log"
 
 	_ "github.com/lib/pq"
 )
@@ -14,13 +13,19 @@ type Database struct {
 	database *sql.DB
 }
 
-func (dbconf *c.DBConfig) NewDatabase() (*Database, error) {
-	driverConnectionString := dbconf.DBConnectionString()
-
-	db, err := sql.Open(dbcongf.driver, driver)
+func NewDatabase(dbconf *c.DBConfig) (*Database, error) {
+	db, err := sql.Open(dbconf.Driver(), dbconf.DBConnectionString())
+	if err != nil {
+		fmt.Errorf("Error connecting to db: %v", err)
+		return &Database{
+			nil,
+		}, err
+	}
 	return &Database{
 		database: db,
 	}, err
 }
 
-func
+func (db *Database) Database() *sql.DB {
+	return db.database
+}

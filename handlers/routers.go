@@ -1,10 +1,10 @@
 package handlers
 
 import (
-	"Kotel/app"
-	v "Kotel/views"
 	"fmt"
 	"html/template"
+	con "kotel/constants"
+	v "kotel/views"
 	"net/http"
 )
 
@@ -18,7 +18,7 @@ func DefaultHandler(w http.ResponseWriter, r *http.Request) {
 	t, e := template.New("index.html").Parse(v.Index)
 
 	options := &v.IndexOptions{
-		Title: app.AppName,
+		Title: con.AppName,
 	}
 	e = t.Execute(w, options)
 	if e != nil {

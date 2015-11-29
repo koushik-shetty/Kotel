@@ -1,9 +1,9 @@
 package app
 
 import (
-	"flag"
-	// "log"
 	"errors"
+	"flag"
+	con "kotel/constants"
 )
 
 type Flags struct {
@@ -34,8 +34,8 @@ func (config *AppConfig) GetFlags() Flags {
 
 func getFlags() Flags {
 
-	devMode := flag.Bool(devModeFlag, false, devModeFlagMsg)
-	logDir := flag.String(logDirFlag, logDirDefault, logDirFlagMsg)
+	devMode := flag.Bool(con.DevModeFlag, false, con.DevModeFlagMsg)
+	logDir := flag.String(con.LogDirFlag, con.LogDir, con.LogDirFlagMsg)
 
 	flag.Parse()
 
