@@ -2,26 +2,33 @@ package app
 
 import (
 	c "Kotel/config"
-	"fmt"
-	"github.com/Sirupsen/logrus"
+	"log"
 	"os"
 )
 
-func NewFileLogger(lc *c.LoggerConfig) (*logrus.Logger, error) {
-	fileName := lc.Dir() + "/" + lc.FileName()
+var logger *log.Logger = nil
 
-	os.Mkdir(lc.Dir(), os.ModeDir)
-	stream, err := os.Create(fileName)
-	fmt.Printf("create:%v,%v,%v\n", fileName, err, stream)
+//func Write(p []byte) (n int, err error)
 
-	if err != nil {
-		return nil, err
+func NewFileLogger(lc *c.LoggerConfig) (*log.Logger, error) {
+	if logger == nil {
+		fileName := lc.Dir() + "/" + lc.FileName()
+
+		os.Mkdir(lc.Dir(), os.ModeDir)
+		stream, err := os.Create(fileName)
+		if err != nil {
+			return nil, err
+		}
+
+		log := log.New(stream, "", log.Ldate|log.Ltime|log.Llongfile)
+		logger = log
+		return log, nil
 	}
+	return logger, nil
 
-	logrus.SetOutput(stream)
-	logrus.SetFormatter(&logrus.JSONFormatter{})
-	logrus.SetLevel(logrus.ErrorLevel)
+}
 
-	log := logrus.New()
-	return log, nil
+func NewConsoleLogger() *log.Logger {
+	log := log.New(os.Stdout, ": ", log.Ldate|log.Ltime|log.Llongfile)
+	return log
 }

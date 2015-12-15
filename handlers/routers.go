@@ -31,3 +31,16 @@ func PublicHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("url paths : %v\n", r.URL.Path)
 	http.ServeFile(w, r, r.URL.Path[1:])
 }
+
+func LoginHandler(w http.ResponseWriter, r *http.Request) {
+	err := r.ParseForm()
+	w.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		w.Write([]byte("success:false"))
+		fmt.Printf("err:%v", err)
+	}
+	userid := r.FormValue("userid")
+	pass := r.FormValue("password")
+	fmt.Printf("user=%s,pass=%s", userid, pass)
+	w.Write([]byte("success:true"))
+}

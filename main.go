@@ -18,8 +18,9 @@ func main() {
 	AppConfig := a.InitApp()
 
 	fmt.Printf("App port : %s\n", AppConfig.GetConfig().Port)
-	h.Handlers("/", h.DefaultHandler)
 	h.Handlers("/public/", h.PublicHandler)
+	h.Handlers("/login", h.LoginHandler)
+	h.Handlers("/", h.DefaultHandler)
 
 	//TODO : handle logger error
 	log, _ := a.NewFileLogger(c.DefaultLoggerConfig())
