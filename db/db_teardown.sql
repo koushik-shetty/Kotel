@@ -28,7 +28,7 @@ LANGUAGE plpgsql;
 CREATE OR REPLACE FUNCTION terminate_connections(db_con_name text, dbname text) RETURNS void AS $$
 BEGIN
 	IF (EXISTS (SELECT 1 FROM pg_database WHERE datname=dbname) and (dbname <> 'postgres') )THEN
-		SELECT pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname=dbname and pid <> pg_backend_pid();
+		PERFORM pg_terminate_backend(pg_stat_activity.pid) FROM pg_stat_activity WHERE pg_stat_activity.datname=dbname and pid <> pg_backend_pid();
 	END IF;
 END;
 $$
@@ -61,8 +61,8 @@ BEGIN
 	--PERFORM destroy_root_connection(con);
 	PERFORM create_root_connection(con);
 	PERFORM terminate_connections(con, 'koteldb');
+	PERFORM removemove_db(con, 'koteldb');
 	PERFORM remove_role(con, 'koteladmin');
-	PERFORM remove_db(con, 'koteldb');
 	PERFORM destroy_root_connection(con);	
 END;
 $$
