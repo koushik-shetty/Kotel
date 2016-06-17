@@ -1,18 +1,18 @@
 package main
 
 import (
-	a "Kotel/app"
-	c "Kotel/config"
-	h "Kotel/handlers"
 	"fmt"
+	a "github.com/koushik-shetty/Kotel/app"
+	c "github.com/koushik-shetty/Kotel/config"
+	h "github.com/koushik-shetty/Kotel/handlers"
 	"net/http"
 )
 
 func main() {
 	fmt.Println("***************************************************************************\n")
 	fmt.Println("*       Kotel(Virtual Story Wall) developed by Koushik Shetty[17801]      *\n")
-	fmt.Println("*                      kou4307@gmail.com                                  *\n")
-	fmt.Println("*              https://github.com/koushik-shetty                          *\n")
+	fmt.Println("*				koushik@thoughtworks.com/kou4307@gmail.com                 *\n")
+	fmt.Println("*					https://github.com/koushik-shetty                      *\n")
 	fmt.Println("***************************************************************************\n")
 
 	AppConfig := a.InitApp()

@@ -1,12 +1,13 @@
 package app
 
 import (
-	c "Kotel/config"
 	"database/sql"
 	"fmt"
 	_ "log"
 
 	_ "github.com/lib/pq"
+
+	c "github.com/koushik-shetty/Kotel/config"
 )
 
 type Database struct {

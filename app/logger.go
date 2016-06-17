@@ -1,7 +1,7 @@
 package app
 
 import (
-	c "Kotel/config"
+	c "github.com/koushik-shetty/Kotel/config"
 	"log"
 	"os"
 )

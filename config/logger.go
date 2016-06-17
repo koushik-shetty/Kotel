@@ -1,7 +1,7 @@
 package config
 
 import (
-	con "kotel/constants"
+	con "github.com/koushik-shetty/Kotel/constants"
 )
 
 type LoggerConfig struct {

@@ -3,7 +3,7 @@ package app
 import (
 	"errors"
 	"flag"
-	con "kotel/constants"
+	con "github.com/koushik-shetty/Kotel/constants"
 )
 
 type Flags struct {

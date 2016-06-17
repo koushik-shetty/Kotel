@@ -3,9 +3,10 @@ package handlers
 import (
 	"fmt"
 	"html/template"
-	con "kotel/constants"
-	v "kotel/views"
 	"net/http"
+
+	con "github.com/koushik-shetty/Kotel/constants"
+	v "github.com/koushik-shetty/Kotel/views"
 )
 
 type HanderFunction func(w http.ResponseWriter, r *http.Request)
