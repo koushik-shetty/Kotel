@@ -58,6 +58,7 @@ func DefaultDBConfig() *DBConfig {
 		password: "postgres",
 	}
 }
+
 func (dbconf *DBConfig) DBConnectionString() string {
 	return fmt.Sprintf("host=%s dbname=%s user=%s password=%s sslmode=disable", dbconf.HostName(), dbconf.DBName(), dbconf.UserName(), dbconf.Password())
 }

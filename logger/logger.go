@@ -50,6 +50,22 @@ func NewLogger(level string, logDir string, logFile string) (*Logger, error) {
 	}, nil
 }
 
+//Logs to the stdout  in text format
+func ConsoleLogger(level string) (*Logger, error) {
+	parsedLevel, err := logrus.ParseLevel(level)
+	if err != nil {
+		return nil, err
+	}
+
+	return &Logger{
+		textLogger: &logrus.Logger{
+			Level:     parsedLevel,
+			Out:       os.Stdout,
+			Formatter: new(logrus.TextFormatter),
+		},
+	}, nil
+}
+
 func (l *Logger) InfoF(format string, args ...interface{}) {
 	l.textLogger.Infof(format, args...)
 }

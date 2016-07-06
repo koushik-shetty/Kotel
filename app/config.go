@@ -1,58 +1,71 @@
 package app
 
 import (
-	"errors"
-	"flag"
-	con "github.com/koushik-shetty/Kotel/constants"
+	"encoding/json"
+	"io/ioutil"
 )
 
-type Flags struct {
-	DevMode bool
-	LogDir  string
-}
-
-type Config struct {
-	Port string
-}
-
-var DefaultConfig = Config{
-	Port: "5004",
+//config file json format
+type ConfigJSON struct {
+	Port string `json:"port"`
 }
 
 type AppConfig struct {
-	Config Config
-	Flags  Flags
+	port  string
+	flags *Flags
 }
 
-func (config *AppConfig) GetConfig() Config {
-	return config.Config
+func (config *AppConfig) GetPort() string {
+	return config.port
 }
 
-func (config *AppConfig) GetFlags() Flags {
-	return config.Flags
+func (config *AppConfig) GetFlags() *Flags {
+	return config.flags
 }
 
-func getFlags() Flags {
+//genereate a new AppConfig
+func NewAppConfig(flags *Flags) (*AppConfig, error) {
+	file := flags.ConfigFile
+	var config *AppConfig
+	if file == "" {
+		config = DefaultConfig(flags)
+	} else {
+		c, err := readConfigFile(file)
+		if err != nil {
+			return nil, err
+		}
+		config = c
+	}
 
-	devMode := flag.Bool(con.DevModeFlag, false, con.DevModeFlagMsg)
-	logDir := flag.String(con.LogDirFlag, con.LogDir, con.LogDirFlagMsg)
+	config.flags = flags
+	return config, nil
+}
 
-	flag.Parse()
+func DefaultConfig(flags *Flags) *AppConfig {
+	port := "666"
 
-	return Flags{
-		DevMode: *devMode,
-		LogDir:  *logDir,
+	return &AppConfig{
+		port:  port,
+		flags: flags,
 	}
 }
 
-func getConfig() Config {
-	config, err := readConfigFile("")
+func readConfigFile(path string) (*AppConfig, error) {
+	if path == "" {
+		return DefaultConfig, nil
+	}
+	configFile, err := ioutil.ReadFile(path)
 	if err != nil {
-		return DefaultConfig
+		return nil, err
 	}
-	return *config
-}
 
-func readConfigFile(path string) (config *Config, err error) {
-	return nil, errors.New("Failed to read config file")
+	configJSON := &ConfigJSON{}
+	err = json.Unmarshal(configFile, configJSON)
+	if err != nil {
+		return nil, err
+	}
+
+	return &AppConfig{
+		port: configJSON.Port,
+	}, nil
 }

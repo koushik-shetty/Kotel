@@ -4,14 +4,13 @@ import (
 	"net/http"
 )
 
-func InitApp() AppConfig {
-	return AppConfig{
-		Flags:  getFlags(),
-		Config: getConfig(),
-	}
+func InitApp() (*AppConfig, error) {
+	flags := ParseFlags()
+
+	config, err := NewAppConfig(flags)
+	return config, err
 }
 
 func StartApplication(config *AppConfig) error {
-	http.ListenAndServe(config.GetConfig().Port, nil)
-	return nil
+	return http.ListenAndServe(config.GetPort(), nil)
 }

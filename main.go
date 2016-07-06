@@ -2,6 +2,8 @@ package main
 
 import (
 	"fmt"
+	"log"
+
 	a "github.com/koushik-shetty/Kotel/app"
 	c "github.com/koushik-shetty/Kotel/config"
 	h "github.com/koushik-shetty/Kotel/handlers"
@@ -15,27 +17,28 @@ func main() {
 	fmt.Println("*					https://github.com/koushik-shetty                      *\n")
 	fmt.Println("***************************************************************************\n")
 
-	AppConfig := a.InitApp()
+	AppConfig, err := a.InitApp()
+	if err != nil {
+		log.Fatalf("Error reading appconfig: %s", err)
+	}
 
-	fmt.Printf("App port : %s\n", AppConfig.GetConfig().Port)
+	fmt.Printf("App port : %s\n", AppConfig.GetPort())
 	h.Handlers("/public/", h.PublicHandler)
 	h.Handlers("/login", h.LoginHandler)
 	h.Handlers("/", h.DefaultHandler)
 
 	//TODO : handle logger error
-	log, _ := a.NewFileLogger(c.DefaultLoggerConfig())
-	log.Printf("log happened yay!!!")
 
 	dbconf := c.DefaultDBConfig()
 	db, _ := a.NewDatabase(dbconf)
 	defer db.Database().Close()
 
-	err := db.Database().Ping()
+	err = db.Database().Ping()
 
 	if err != nil {
 		fmt.Printf("err:%v", err)
 		return
 	}
-	http.ListenAndServe(":"+AppConfig.GetConfig().Port, nil)
+	http.ListenAndServe(":"+AppConfig.GetPort(), nil)
 	return
 }

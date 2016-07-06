@@ -3,7 +3,6 @@ package logger_test
 import (
 	"bufio"
 	"bytes"
-	"io/ioutil"
 	"os"
 	"path"
 	"testing"
@@ -11,12 +10,8 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/koushik-shetty/Kotel/logger"
+	tu "github.com/koushik-shetty/Kotel/testutils"
 )
-
-func readFileContents(file string) (string, error) {
-	bytes, err := ioutil.ReadFile(file)
-	return string(bytes), err
-}
 
 func removeFile(t *testing.T, file string) {
 	err := os.Remove(file)
@@ -36,7 +31,7 @@ func TestNewLoggerCreatesAFile(t *testing.T) {
 
 	println("err:", err)
 	assert.True(t, !os.IsNotExist(err), "Expected file to be created")
-	removeFile(t, filename)
+	tu.RemoveFile(t, filename)
 }
 
 func TestLoggerWritesEntries(t *testing.T) {
@@ -46,16 +41,16 @@ func TestLoggerWritesEntries(t *testing.T) {
 
 	assert.NoError(t, err, "Expected new logger not to fail")
 
-	filename := path.Join(logDir, logFile)
+	filename := tu.TemporaryFile(logFile)
 
 	log.ErrorF("TestLog: %s", "testdata")
 
-	fileContents, err := readFileContents(filename)
+	fileContents, err := tu.ReadFileContents(filename)
 	assert.NoError(t, err, "Expected to read created file")
 
 	println("contents:", fileContents)
 	assert.Contains(t, fileContents, "TestLog: testdata", "Expected file to contain log entry")
-	removeFile(t, filename)
+	tu.RemoveFile(t, filename)
 }
 
 func TestLoggerWritesEntriesOfAppropriateLevel(t *testing.T) {
@@ -65,22 +60,21 @@ func TestLoggerWritesEntriesOfAppropriateLevel(t *testing.T) {
 
 	assert.NoError(t, err, "Expected new logger not to fail")
 
-	filename := path.Join(logDir, logFile)
+	filename := tu.TemporaryFile(logFile)
 
 	log.InfoF("TestLog: %s", "InfoLog")
 	log.ErrorF("TestLog: %s", "ErrorLog")
 
-	fileContents, err := readFileContents(filename)
+	fileContents, err := tu.ReadFileContents(filename)
 	assert.NoError(t, err, "Expected to read created file")
 
 	scanner := bufio.NewScanner(bytes.NewBuffer([]byte(fileContents)))
 	if scanner.Scan() {
 		line := scanner.Text()
-		println("text:", line[:4])
-		assert.Equal(t, line[:4], "INFO")
+		assert.Contains(t, line, "level=info")
 	}
 	if scanner.Scan() {
-		assert.Equal(t, scanner.Text()[:4], "ERRO")
+		assert.Contains(t, scanner.Text(), "level=error")
 	}
 	assert.Contains(t, fileContents, "TestLog: InfoLog", "Expected file to contain log entry")
 	assert.Contains(t, fileContents, "TestLog: ErrorLog", "Expected file to contain log entry")
